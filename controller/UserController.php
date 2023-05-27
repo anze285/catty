@@ -34,7 +34,7 @@ class UserController {
                 } else {
                     // Register successful
                     $_SESSION['user'] = $registerReturn;
-                    ViewHelper::redirect(BASE_URL . "threads");
+                    ViewHelper::redirect(BASE_URL . "threads/index");
                 }
             }
 
@@ -43,9 +43,10 @@ class UserController {
         }
     }
 
-    public static function loginForm($notice = "") {
+    public static function loginForm($notice = "", $formData = []) {
         ViewHelper::render("view/user/login.php", [
-            'notice' => $notice
+            'notice' => $notice,
+            'formData' => $formData,
         ]);
     }
     
@@ -60,14 +61,14 @@ class UserController {
             $loginReturn = UserDB::login($email, $password);
             if ($loginReturn === "incorrect_password") {
                 // Wrong pass
-                self::loginForm("Wrong password. Please try again.");
+                self::loginForm("Wrong password. Please try again.", $_POST);
             } elseif ($loginReturn === "email_not_found") {
                 // Email not found
                 self::loginForm("User with this email doesn't exists.");
             } else {
                 // Login successful
                 $_SESSION['user'] = $loginReturn;
-                ViewHelper::redirect(BASE_URL . "threads");
+                ViewHelper::redirect(BASE_URL . "threads/index");
             }
         } else {
             self::loginForm("Something went wrong.");
@@ -77,7 +78,7 @@ class UserController {
     public static function logout() {
         unset($_SESSION['user']);
     
-        ViewHelper::redirect(BASE_URL . "threads");
+        ViewHelper::redirect(BASE_URL . "threads/index");
     }
 
 }

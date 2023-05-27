@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand p-0" href="<?= BASE_URL . 'threads' ?>">Catty</a>
+    <a class="navbar-brand p-0" href="<?= BASE_URL . 'threads/index' ?>">Catty</a>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <?php if (isset($_SESSION['user'])): ?>
@@ -14,6 +14,7 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#">My Page</a>
                         <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="<?= BASE_URL . "posts/new" ?>">Create post</a>
                         <div class="dropdown-divider"></div>
                         <form id="logout-form" action="<?= BASE_URL . "logout" ?>" method="POST" style="display: none;">
                         </form>
@@ -27,6 +28,7 @@
             </div>
             <?php else: ?>
             <a href="<?= BASE_URL . 'login' ?>" class="btn btn-primary">Login</a>
+            <a href="<?= BASE_URL . 'registration' ?>" class="btn btn-secondary">Register</a>
             <?php endif; ?>
         </li>
     </ul>

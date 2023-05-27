@@ -5,6 +5,8 @@ session_start();
 require_once("controller/BookController.php");
 require_once("controller/StoreController.php");
 require_once("controller/UserController.php");
+require_once("controller/ThreadController.php");
+require_once("controller/PostController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
@@ -16,6 +18,7 @@ define("BOOTSTRAP_JS_URL", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/j
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 $urls = [
+    # user
     "registration" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             UserController::register();
@@ -35,8 +38,24 @@ $urls = [
             UserController::logout();
         }
         else {
-            ViewHelper::redirect(BASE_URL . "threads");
+            ViewHelper::redirect(BASE_URL . "threads/index");
         }
+    },
+    # threads
+    "threads/index" => function () {
+        ThreadController::index();
+    },
+    # posts
+    "posts/new" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            PostController::create();
+        }
+        else {
+            PostController::new();
+        }
+    },
+    "posts/show" => function () {
+        PostController::show();
     },
 
 

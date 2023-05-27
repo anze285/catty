@@ -30,6 +30,14 @@ class UserDB {
         $statement->bindParam(":catname", $catname);
         $statement->bindParam(":admin", $isAdmin);
         $statement->execute();
+        $statement->execute();
+
+        $userId = $db->lastInsertId();
+
+        $statement = $db->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $userId);
+        $statement->execute();
+
         $user = $statement->fetch();
 
         return $user;
