@@ -5,9 +5,10 @@ require_once("ViewHelper.php");
 
 class UserController {
 
-    public static function registrationForm($notice = "") {
+    public static function registrationForm($notice = "", $formData = []) {
         ViewHelper::render("view/user/registration.php", [
-            'notice' => $notice
+            'notice' => $notice,
+            'formData' => $formData,
         ]);
     }
 
@@ -17,18 +18,24 @@ class UserController {
                 isset($_POST["password"]) && !empty($_POST["password"]);
 
         if ($validData) {
-            $registerReturn = UserDB::insert($_POST["email"], $_POST["password"], $_POST["catname"], $_POST["catavatar"]);
+            if(strlen($_POST["password"]) < 5){
+                // Weak password
+                self::registrationForm("Password is too short.", $_POST);
+            }
+            else {
+                $registerReturn = UserDB::insert($_POST["email"], $_POST["password"], $_POST["catname"], $_POST["catavatar"]);
             
-            if ($registerReturn === "email_exists") {
-                // Email exists
-                self::registrationForm("This email is already in use.");
-            } elseif ($registerReturn === "cat_name_exists") {
-                // CatName exists
-                self::registrationForm("This CatNick is already in use.");
-            } else {
-                // Register successful
-                $_SESSION['user'] = $registerReturn;
-                ViewHelper::redirect(BASE_URL . "threads");
+                if ($registerReturn === "email_exists") {
+                    // Email exists
+                    self::registrationForm("This email is already in use.", $_POST);
+                } elseif ($registerReturn === "cat_name_exists") {
+                    // CatName exists
+                    self::registrationForm("This CatNick is already in use.", $_POST);
+                } else {
+                    // Register successful
+                    $_SESSION['user'] = $registerReturn;
+                    ViewHelper::redirect(BASE_URL . "threads");
+                }
             }
 
         } else {

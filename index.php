@@ -9,6 +9,9 @@ require_once("controller/UserController.php");
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
 define("BOOTSTRAP_CSS_URL", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
+define("BOOTSTRAP_JQUERY_URL", "https://code.jquery.com/jquery-3.5.1.slim.min.js");
+define("BOOTSTRAP_JS_URL", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js");
+
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
