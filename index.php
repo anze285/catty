@@ -30,6 +30,14 @@ $urls = [
             UserController::loginForm();
         }
     },
+    "logout" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UserController::logout();
+        }
+        else {
+            ViewHelper::redirect(BASE_URL . "threads");
+        }
+    },
 
 
 

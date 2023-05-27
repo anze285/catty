@@ -74,4 +74,10 @@ class UserController {
         }
     }
 
+    public static function logout() {
+        unset($_SESSION['user']);
+    
+        ViewHelper::redirect(BASE_URL . "threads");
+    }
+
 }

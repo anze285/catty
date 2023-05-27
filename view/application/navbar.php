@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand p-0" href="#">Catty</a>
+    <a class="navbar-brand p-0" href="<?= BASE_URL . 'threads' ?>">Catty</a>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
             <?php if (isset($_SESSION['user'])): ?>
@@ -15,7 +15,12 @@
                         <a class="dropdown-item" href="#">My Page</a>
                         <a class="dropdown-item" href="#">Edit</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <form id="logout-form" action="<?= BASE_URL . "logout" ?>" method="POST" style="display: none;">
+                        </form>
+                        <a class="dropdown-item" href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
                     </div>
                 </div>
 
