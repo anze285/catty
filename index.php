@@ -4,13 +4,49 @@ session_start();
 
 require_once("controller/BookController.php");
 require_once("controller/StoreController.php");
+require_once("controller/UserController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
+define("BOOTSTRAP_CSS_URL", "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css");
 
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 $urls = [
+    "registration" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UserController::register();
+        } else {
+            UserController::registrationForm();
+        }
+    },
+    "login" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UserController::login();
+        } else {
+            UserController::loginForm();
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # Book CRUD
     "book" => function () {
        BookController::index();

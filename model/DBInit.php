@@ -5,7 +5,7 @@ class DBInit {
     private static $host = "localhost";
     private static $user = "root";
     private static $password = "";
-    private static $schema = "bookstore";
+    private static $schema = "catty";
     private static $instance = null;
 
     private function __construct() {
@@ -16,13 +16,6 @@ class DBInit {
         
     }
 
-    /**
-     * Returns a PDO instance -- a connection to the database.
-     * The singleton instance assures that there is only one connection active
-     * at once (within the scope of one HTTP request)
-     * 
-     * @return PDO instance 
-     */
     public static function getInstance() {
         if (!self::$instance) {
             $config = "mysql:host=" . self::$host
