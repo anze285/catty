@@ -21,18 +21,33 @@ class PostDB {
     }
 
     public static function get($id) {
-    $db = DBInit::getInstance();
+        $db = DBInit::getInstance();
 
-    $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title
-        FROM posts p
-        JOIN users u ON p.user_id = u.id
-        JOIN threads t ON p.thread_id = t.id
-        WHERE p.id = :id");
-    $statement->bindParam(":id", $id);
-    $statement->execute();
-    $post = $statement->fetch();
+        $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title
+            FROM posts p
+            JOIN users u ON p.user_id = u.id
+            JOIN threads t ON p.thread_id = t.id
+            WHERE p.id = :id");
 
-    return $post;
-}
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $post = $statement->fetch();
+
+        return $post;
+    }
+
+    public static function getAll() {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title
+            FROM posts p
+            JOIN users u ON p.user_id = u.id
+            JOIN threads t ON p.thread_id = t.id");
+
+        $statement->execute();
+        $posts = $statement->fetchAll();
+
+        return $posts;
+    }
     
 }

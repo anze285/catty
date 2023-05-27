@@ -18,7 +18,9 @@ class PostController {
 
     public static function create() {
         $validData = isset($_POST["title"]) && !empty($_POST["title"]) && 
-                isset($_POST["thread"]) && !empty($_POST["thread"]);
+                isset($_POST["thread"]) && !empty($_POST["thread"]) &&
+                ((isset($_FILES["photo"]) && $_FILES["photo"]["error"] === UPLOAD_ERR_OK) || 
+                isset($_POST["text"]) && !empty($_POST["text"]));
 
         if ($validData) {
             $destination = "";
@@ -62,7 +64,7 @@ class PostController {
             ViewHelper::redirect(BASE_URL . "posts/show?id=" . $postId);
 
         } else {
-            self::new("Something went wrong.");
+            self::new("Image or text description is required.", $_POST);
         }
     }
 

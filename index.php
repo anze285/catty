@@ -2,8 +2,6 @@
 
 session_start();
 
-require_once("controller/BookController.php");
-require_once("controller/StoreController.php");
 require_once("controller/UserController.php");
 require_once("controller/ThreadController.php");
 require_once("controller/PostController.php");

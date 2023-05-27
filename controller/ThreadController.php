@@ -1,6 +1,7 @@
 <?php
 
 require_once("model/UserDB.php");
+require_once("model/PostDB.php");
 require_once("ViewHelper.php");
 
 class ThreadController {
@@ -10,7 +11,10 @@ class ThreadController {
     }
 
     public static function index() {
-        ViewHelper::render("view/threads/index.php");
+        $posts = PostDB::getAll();
+        ViewHelper::render("view/threads/index.php", [
+            'posts' => $posts,
+        ]);
     }
 
 }

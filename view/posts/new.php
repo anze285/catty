@@ -8,7 +8,6 @@
     <?php
         include 'view/application/navbar.php';
     ?>
-    <br><br><br><br><br>
     <form class="" method="POST" action="<?= BASE_URL . "posts/new" ?>" enctype="multipart/form-data">
         <?php if (!empty($notice)) : ?>
             <div class="alert alert-danger"><?= $notice ?></div>
