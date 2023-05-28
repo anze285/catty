@@ -4,6 +4,16 @@
     include 'view/application/head.php';
 ?>
 
+<script>
+    $(document).ready(function() {
+        $('.catavatar-picture').click(function() {
+            $('.catavatar-picture').removeClass('selected');
+            $(this).addClass('selected');
+            $('#catavatar').val($(this).attr('src'));
+        });
+    });
+</script>
+
 <body>
     <?php
         include 'view/application/navbar.php';
@@ -30,8 +40,14 @@
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="catavatar">Cat Avatar:</label>
-                    <input type="text" class="form-control" id="catavatar" name="catavatar">
+                    <div class="text-center"><label for="catavatar">CatAvatar:</label></div>
+                    <div class="image-row text-center">
+                        <?php for ($i = 1; $i <= 5; $i++) : ?>
+                        <img class="catavatar-picture cursor-pointer<?php if ($i === 1) echo ' selected'; ?>"
+                            src="<?php echo ASSETS_URL . "catavatar/catavatar" . $i . ".jpg"; ?>">
+                        <?php endfor; ?>
+                        <input type="hidden" name="catavatar" id="catavatar" value="<?php echo ASSETS_URL . "catavatar/catavatar1.jpg"; ?>">
+                    </div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Register</button>

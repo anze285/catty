@@ -8,8 +8,7 @@
 
                 <div class="profile-container">
                     <img class="profile-picture cursor-pointer"
-                        src="https://cdn.shopify.com/s/files/1/1140/3964/products/SB02-A_WB_3_700x700.jpg?v=1653386567"
-                        alt="Profile Picture" data-toggle="dropdown">
+                        src="<?php echo $_SESSION['user']['catavatar']; ?>" data-toggle="dropdown">
 
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#">My Page</a>

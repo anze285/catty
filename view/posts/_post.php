@@ -1,8 +1,10 @@
-<div class="post cursor-pointer"  style="max-width: 600px;" onclick="redirectToPost(<?= $post["id"] ?>);">
+<div class="post cursor-pointer" style="max-width: 600px;" onclick="redirectToPost(<?= $post["id"] ?>);">
     <div class="post-header">
         <div class="thread-info">
-            <span class="thread-title"><?= $post['thread_title'] ?></span>
-            <span class="posted-by">Posted by <?= $post['catname'] ?></span>
+            <a href="<?= BASE_URL . 'threads/index?thread_id=' . $post['tid'] ?>" class="thread-link">
+                <span class="thread-title custom-bold"><?= $post['thread_title'] ?></span>
+            </a>
+            <span class="posted-by user-text">Posted by <?= $post['catname'] ?></span>
         </div>
     </div>
     <hr>

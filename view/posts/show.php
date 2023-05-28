@@ -16,6 +16,7 @@
                     <?php
                         include 'view/posts/_post.php';
                     ?>
+                    <a href="javascript:history.back()" class="back-button">Back</a>
                 </div>
             </div>
             <div class="col-lg-6">

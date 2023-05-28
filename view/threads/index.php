@@ -11,8 +11,10 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-8 d-flex justify-content-center justify-content-lg-end">
-                <!-- Left column for displaying posts -->
                 <div class="posts-container">
+                    <?php if (!empty($notice)) : ?>
+                        <div class="alert alert-warning"><?= $notice ?></div>
+                    <?php endif; ?>
                     <?php 
                     foreach ($posts as $post) :
                         include 'view/posts/_post.php';
@@ -20,9 +22,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <!-- Right column (empty for now) -->dsadsas
                 <div class="right-column">
-                    <!-- Placeholder content -->
+                    <?php
+                        include 'view/threads/_thread_list.php';
+                    ?>
                 </div>
             </div>
         </div>

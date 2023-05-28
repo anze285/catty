@@ -10,8 +10,16 @@ class CommentController {
                      isset($_POST["post_id"]) && !empty($_POST["post_id"]);
 
         if ($validData) {
-            CommentDB::insert($_POST["comment"], $_SESSION["user"]["id"], $_POST["post_id"]);
+            if (isset($_SESSION["user"]) && isset($_SESSION["user"]["id"])) {
+                CommentDB::insert($_POST["comment"], $_SESSION["user"]["id"], $_POST["post_id"]);
+                PostController::show($_POST["post_id"]);
+            } else {
+                $notice = "In order to comment you need to be logged in.";
+                PostController::show($_POST["post_id"], $notice);
+            }
         }
-        ViewHelper::redirect(BASE_URL . "posts/show?id=" . $_POST["post_id"]);
+        else{
+            PostController::show($_POST["post_id"]);
+        }
     }    
 }

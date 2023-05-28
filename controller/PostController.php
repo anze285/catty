@@ -69,8 +69,10 @@ class PostController {
         }
     }
 
-    public static function show() {
-        $postId = $_GET["id"];
+    public static function show($postId = null, $notice = "") {
+        if (!$postId && isset($_GET["id"])) {
+            $postId = $_GET["id"];
+        }
         $post = PostDB::get($postId);
         $comments = CommentDB::commentsForPost($postId);
 
@@ -78,6 +80,7 @@ class PostController {
         ViewHelper::render("view/posts/show.php", [
             'post' => $post,
             'comments' => $comments,
+            'notice' => $notice,
         ]);
     }
 

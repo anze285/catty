@@ -1,4 +1,7 @@
  <div>
+    <?php if (!empty($notice)) : ?>
+            <div class="alert alert-danger"><?= $notice ?></div>
+    <?php endif; ?>
      <?php foreach ($comments as $comment) :
         include 'view/comments/_comment.php';
      endforeach; ?>

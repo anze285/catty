@@ -62,86 +62,8 @@ $urls = [
             CommentController::create();
         }
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # Book CRUD
-    "book" => function () {
-       BookController::index();
-    },
-    "book/search" => function () {
-        BookController::search();
-    },
-    "book/add" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            BookController::add();
-        } else {
-            BookController::showAddForm();
-        }
-    },
-    "book/edit" => function () {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            BookController::edit();
-        } else {
-            BookController::showEditForm();
-        }
-    },
-    "book/delete" => function () {
-        BookController::delete();
-    },
-    # Ajax book search
-    "book/search-ajax" => function () {
-        BookController::searchAjax();
-    },
-    "book/search-vue" => function () {
-        BookController::searchVue();
-    },
-    # API for book search
-    "api/book/search" => function () {
-        BookController::searchApi();
-    },
-    # Classic store
-    "store" => function () {
-        StoreController::index();
-    },
-    "store/add-to-cart" => function () {
-        StoreController::addToCart();
-    },
-    "store/update-cart" => function () {
-        StoreController::updateCart();
-    },
-    "store/purge-cart" => function () {
-        StoreController::purgeCart();
-    },
-    # AJAX store
-    "ajax/store" => function () {
-        StoreController::ajaxIndex();
-    },
-    "ajax/cart" => function () {
-        StoreController::ajaxCartContents();
-    },
-    "ajax/add-to-cart" => function () {
-        StoreController::ajaxAddToCart();
-    },
     "" => function () {
-        ViewHelper::redirect(BASE_URL . "store");
+        ViewHelper::redirect(BASE_URL . "threads/index");
     },
 ];
 
