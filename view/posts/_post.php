@@ -12,7 +12,7 @@
                 </span>
             </div>
             <div>
-                <?php if ($_SESSION["user"]["id"] === $post['uid']) : ?>
+                <?php if (isset($_SESSION["user"]) && $_SESSION["user"]["id"] === $post['uid']) : ?>
                     <a href="<?= BASE_URL . 'posts/edit?id=' . $post['id'] ?>" class="btn btn-dark">
                         Edit
                     </a>
