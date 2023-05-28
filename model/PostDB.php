@@ -23,7 +23,7 @@ class PostDB {
     public static function get($id) {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid
+        $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid, u.id AS uid
             FROM posts p
             JOIN users u ON p.user_id = u.id
             JOIN threads t ON p.thread_id = t.id
@@ -39,7 +39,7 @@ class PostDB {
     public static function getAll() {
         $db = DBInit::getInstance();
 
-        $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid
+        $statement = $db->prepare("SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid, u.id AS uid
             FROM posts p
             JOIN users u ON p.user_id = u.id
             JOIN threads t ON p.thread_id = t.id
@@ -55,7 +55,7 @@ class PostDB {
     public static function getAllForThread($threadActive) {
         $db = DBInit::getInstance();
 
-        $query = "SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid
+        $query = "SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid, u.id AS uid
             FROM posts p
             JOIN users u ON p.user_id = u.id
             JOIN threads t ON p.thread_id = t.id
@@ -73,7 +73,7 @@ class PostDB {
     public static function getAllForUser($userId) {
         $db = DBInit::getInstance();
 
-        $query = "SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid
+        $query = "SELECT p.id, p.title, p.text, p.photo_url, u.catname, t.title AS thread_title, t.id AS tid, u.id AS uid
             FROM posts p
             JOIN users u ON p.user_id = u.id
             JOIN threads t ON p.thread_id = t.id
@@ -86,6 +86,19 @@ class PostDB {
         $posts = $statement->fetchAll();
 
         return $posts;
+    }
+
+    public static function update($title, $text, $thread, $postId) {
+        $db = DBInit::getInstance();
+        
+        $statement = $db->prepare("UPDATE posts SET title = :title, text = :text, thread_id = :thread WHERE id = :postId");
+        $statement->bindParam(":title", $title);
+        $statement->bindParam(":text", $text);
+        $statement->bindParam(":thread", $thread);
+        $statement->bindParam(":postId", $postId);
+        $statement->execute();
+        
+        return $postId;
     }
 
 }

@@ -15,7 +15,13 @@ class ThreadController {
         $threads = ThreadDB::getAllThreads();
 
         $threadActive = isset($_GET["thread_id"]) ? $_GET["thread_id"] : null;
-        $posts = ($threadActive) ? PostDB::getAllForThread($threadActive) : PostDB::getAll();
+        $userId = isset($_GET["user_id"]) ? $_GET["user_id"] : null;
+        
+        if (isset($userId)) {
+            $posts = PostDB::getAllForUser($userId);
+        } else {
+            $posts = ($threadActive) ? PostDB::getAllForThread($threadActive) : PostDB::getAll();
+        }
 
         $notice = (empty($posts)) ? "No posts that's just CATastrofic. Create a CAT post right now." : "";
 

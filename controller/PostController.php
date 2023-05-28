@@ -84,4 +84,37 @@ class PostController {
         ]);
     }
 
+    public static function edit($notice = "", $postId = null) {
+        if (!$postId && isset($_GET["id"])) {
+            $postId = $_GET["id"];
+        }
+        $post = PostDB::get($postId);
+        $threads = ThreadDB::getAllThreads();
+        ViewHelper::render("view/posts/edit.php", [
+            'threads' => $threads,
+            'notice' => $notice,
+            'post' => $post,
+        ]);
+    }
+
+    public static function update() {
+        $validData = isset($_POST["title"]) && !empty($_POST["title"]) && 
+            isset($_POST["thread"]) && !empty($_POST["thread"]) &&
+            isset($_POST["id"]) && !empty($_POST["id"]);
+
+        if ($validData) {
+            $postId = $_POST["id"];
+            $post = PostDB::get($postId);
+
+            if ($post && isset($_SESSION["user"]) && $post["uid"] == $_SESSION["user"]["id"]) {
+                PostDB::update($_POST["title"], $_POST["text"], $_POST["thread"], $postId);
+                ViewHelper::redirect(BASE_URL . "posts/show?id=" . $postId);
+            } else {
+                self::edit("You are not authorized to update this post.", $postId);
+            }
+        } else {
+            self::edit("Something went wrong", $_POST["id"]);
+        }
+    }
+
 }

@@ -63,6 +63,14 @@ $urls = [
     "posts/show" => function () {
         PostController::show();
     },
+    "posts/edit" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            PostController::update();
+        }
+        else {
+            PostController::edit();
+        }
+    },
     # comments
     "comment/create" => function () {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {

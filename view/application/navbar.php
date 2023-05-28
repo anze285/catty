@@ -11,7 +11,7 @@
                         src="<?php echo $_SESSION['user']['catavatar']; ?>" data-toggle="dropdown">
 
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#">My Page</a>
+                        <a class="dropdown-item" href="<?= BASE_URL . 'threads/index?user_id=' . $_SESSION["user"]["id"] ?>">My Page</a>
                         <a class="dropdown-item" href="<?= BASE_URL . "edit" ?>">Edit</a>
                         <a class="dropdown-item" href="<?= BASE_URL . "posts/new" ?>">Create post</a>
                         <div class="dropdown-divider"></div>

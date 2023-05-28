@@ -87,3 +87,7 @@
 .custom-link {
   color: black;
 }
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
