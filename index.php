@@ -40,6 +40,13 @@ $urls = [
             ViewHelper::redirect(BASE_URL . "threads/index");
         }
     },
+    "edit" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            UserController::update();
+        } else {
+            UserController::edit();
+        }
+    },
     # threads
     "threads/index" => function () {
         ThreadController::index();

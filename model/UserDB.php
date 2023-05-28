@@ -30,7 +30,6 @@ class UserDB {
         $statement->bindParam(":catname", $catname);
         $statement->bindParam(":admin", $isAdmin);
         $statement->execute();
-        $statement->execute();
 
         $userId = $db->lastInsertId();
 
@@ -64,6 +63,27 @@ class UserDB {
         }
     }
 
+    public static function checkPassword($password, $id) {
+        $db = DBInit::getInstance();
+
+        $statement = $db->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $id);
+        $statement->execute();
+        $user = $statement->fetch();
+
+        if ($user) {
+            $hashedPassword = hash("sha256", $password . $user['salt']);
+
+            if ($hashedPassword === $user['password']) {
+                return "correct_password";
+            } else {
+                return "incorrect_password";
+            }
+        } else {
+            return "user_not_found";
+        }
+    }
+
     private static function checkEmailExists($email) {
         $db = DBInit::getInstance();
 
@@ -84,6 +104,23 @@ class UserDB {
         $count = $statement->fetchColumn();
 
         return $count > 0;
+    }
+
+    public static function update($userId, $catname, $catavatar) {
+        $db = DBInit::getInstance();
+        $statement = $db->prepare("UPDATE users SET catname = :catname, catavatar = :catavatar WHERE id = :userId");
+        $statement->bindParam(":catname", $catname);
+        $statement->bindParam(":catavatar", $catavatar);
+        $statement->bindParam(":userId", $userId);
+        $statement->execute();
+
+        $statement = $db->prepare("SELECT * FROM users WHERE id = :id");
+        $statement->bindParam(":id", $userId);
+        $statement->execute();
+
+        $user = $statement->fetch();
+
+        return $user;
     }
 
 }

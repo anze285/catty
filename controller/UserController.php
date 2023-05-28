@@ -81,4 +81,26 @@ class UserController {
         ViewHelper::redirect(BASE_URL . "threads/index");
     }
 
+    public static function edit($notice = "", $success = "") {
+        ViewHelper::render("view/user/edit.php", [
+            'notice' => $notice,
+            'success' => $success,
+        ]);
+    }
+
+    public static function update() {
+        $checkPassword = UserDB::checkPassword($_POST["password"], $_SESSION["user"]["id"]);
+        if ($checkPassword === "incorrect_password") {
+            self::edit("Wrong password. Please try again.");
+        } elseif ($checkPassword === "correct_password") {
+            $user = UserDB::update($_SESSION["user"]["id"], $_POST["catname"], $_POST["catavatar"]);
+            if ($user) {
+                $_SESSION["user"] = $user;
+                self::edit("", "Successfully updated.");
+            }
+        } else {
+            self::edit("Something went wrong, plese try again." . $checkPassword);
+        }
+    }
+
 }
