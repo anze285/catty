@@ -5,6 +5,7 @@ session_start();
 require_once("controller/UserController.php");
 require_once("controller/ThreadController.php");
 require_once("controller/PostController.php");
+require_once("controller/CommentController.php");
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("ASSETS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "assets/");
@@ -54,6 +55,12 @@ $urls = [
     },
     "posts/show" => function () {
         PostController::show();
+    },
+    # comments
+    "comment/create" => function () {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            CommentController::create();
+        }
     },
 
 

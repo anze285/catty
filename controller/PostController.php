@@ -3,6 +3,7 @@
 require_once("model/UserDB.php");
 require_once("model/ThreadDB.php");
 require_once("model/PostDB.php");
+require_once("model/CommentDB.php");
 require_once("ViewHelper.php");
 
 class PostController {
@@ -69,10 +70,14 @@ class PostController {
     }
 
     public static function show() {
-        $post = PostDB::get($_GET["id"]);
+        $postId = $_GET["id"];
+        $post = PostDB::get($postId);
+        $comments = CommentDB::commentsForPost($postId);
+
 
         ViewHelper::render("view/posts/show.php", [
             'post' => $post,
+            'comments' => $comments,
         ]);
     }
 

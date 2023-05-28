@@ -8,7 +8,7 @@
     <?php
         include 'view/application/navbar.php';
     ?>
-    <form class="" method="POST" action="<?= BASE_URL . "posts/new" ?>" enctype="multipart/form-data">
+    <form class="container-fluid container-lg" method="POST" action="<?= BASE_URL . "posts/new" ?>" enctype="multipart/form-data">
         <?php if (!empty($notice)) : ?>
             <div class="alert alert-danger"><?= $notice ?></div>
             <?php endif; ?>
